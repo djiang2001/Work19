@@ -8,15 +8,6 @@ static void sighandler(int signo){
   }
 }
 
-int mychange(char* data){
-      while(*data){
-	strcat(data,"y");
-	data++;
-      }
-      return 0;
-}
-
-
 int main() {
   signal(SIGINT, sighandler);
 
@@ -28,9 +19,6 @@ int main() {
     char msg[BUFFER_SIZE];
 
     while(read(from_client,msg,BUFFER_SIZE)){
-      msg[strlen(msg) - 1] = '\0';
-      printf("Server received: %s \n",msg);
-      mychange(msg);
       write(to_client,msg,BUFFER_SIZE);
       printf("Server message: %s \n", msg);
     }

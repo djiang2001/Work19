@@ -12,7 +12,7 @@ int main() {
   char output[BUFFER_SIZE];
 
   while(1){
-  printf("Input message: \n");
+  printf("Input message: ");
 
 
   fgets(input,BUFFER_SIZE,stdin);
@@ -20,6 +20,8 @@ int main() {
 
   write(to_server,input,BUFFER_SIZE);
   read(from_server, output, BUFFER_SIZE);
+
+  output[strlen(output)-1] = '\0';
   printf("Server response: %s \n", output);
   }
 }
