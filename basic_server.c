@@ -19,8 +19,8 @@ int main() {
     char msg[BUFFER_SIZE];
 
     while(read(from_client,msg,BUFFER_SIZE)){
-      write(to_client,msg,BUFFER_SIZE);
       printf("Server message: %s \n", msg);
+      write(to_client,msg,BUFFER_SIZE);
     }
   }
 }
