@@ -10,7 +10,7 @@ static void sighandler(int signo){
 
 void editmsg(char * msg){
   while(msg){
-    strcat(msg, "is the wrong answer");
+    strcat(msg,"is not the right answer" );
     msg++;
   }
 }
@@ -28,7 +28,7 @@ int main() {
 
     while(read(from_client,msg,BUFFER_SIZE)){
       printf("Server message: %s \n", msg);
-      
+      editmsg(msg);
       write(to_client,msg,BUFFER_SIZE);
     }
   }
