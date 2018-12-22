@@ -10,7 +10,7 @@ static void sighandler(int signo){
 
 void editmsg(char * msg){
   while(msg){
-    strcpy(msg, msg + 1);
+    strcat(msg, "is the wrong answer");
     msg++;
   }
 }
