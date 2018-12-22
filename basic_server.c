@@ -9,6 +9,7 @@ static void sighandler(int signo){
 }
 
 int main() {
+  
   signal(SIGINT, sighandler);
 
   int to_client;

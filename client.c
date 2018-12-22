@@ -2,7 +2,6 @@
 
 
 int main() {
-
   int to_server;
   int from_server;
 
