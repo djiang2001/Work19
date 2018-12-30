@@ -23,7 +23,7 @@ int main() {
 
     while(read(from_client,msg,BUFFER_SIZE)){
       printf("Server message: %s \n", msg);
-      strcat(msg, "is not here");
+      strcat(msg, " is not here");
       write(to_client,msg,BUFFER_SIZE);
     }
   }
