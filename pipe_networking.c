@@ -11,40 +11,30 @@
   returns the file descriptor for the upstream pipe.
   =========================*/
 int server_handshake(int *to_client) {
-  int f;
-
-  while(1){
-    char ups[HANDSHAKE_BUFFER_SIZE];
-
+  char ups[HANDSHAKE_BUFFER_SIZE];
+  char msg[BUFFER_SIZE];
     
-    printf("Server created wkp\n");
-    mkfifo("wkp", 0666);
+  printf("Server created wkp\n");
+  mkfifo("wkp", 0666);
 
-    printf("Server waiting for client\n");
+  printf("Server waiting for client\n");
 
-    int wkp = open("wkp", O_RDONLY);
-    if(read(wkp,ups, HANDSHAKE_BUFFER_SIZE)){
-      printf("Message from client: %s\n", ups);
-      printf("Server forked\n");
-      f = fork();
-    }
+  int wkp = open("wkp", O_RDONLY);
+  read(wkp,ups, HANDSHAKE_BUFFER_SIZE);
+  printf("Message from client: %s\n", ups);
+  
+  printf("Server removed\n");
+  remove("wkp");
 
-    if(f){//parent
-      printf("Server removed\n");
-      remove("wkp");
-    }
-    else{//child
-      printf("Server asking for validation\n ");
-      *to_client = open("pp", O_WRONLY);
-      write(*to_client, ACK, sizeof(ACK));
+  printf("Server asking for validation\n ");
+  *to_client = open("pp", O_WRONLY);
+  write(*to_client, ACK, sizeof(ACK));
 
-      printf("Server received validation\n");
-      char msg[BUFFER_SIZE];
-      read(wkp, msg, BUFFER_SIZE);
-      printf("Message from client: %s\n", ups);
-      return wkp;
-    }
-  }
+  printf("Server received validation\n");
+
+  read(wkp, msg, BUFFER_SIZE);
+  
+  return wkp;
 }
 
 
